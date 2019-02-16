@@ -8,7 +8,7 @@ We used [this](https://github.com/franroldans/tfm-franroldan-wav2pix) project as
 <figure><img src='assets/Architecture.png'></figure>
 
 ## Dependencies
-
+ 
 - Python 2.7
 - PyTorch 
 
