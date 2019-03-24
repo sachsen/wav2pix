@@ -16,8 +16,8 @@ markdown: kramdown
 ### content configuration ###
 title:       "Wav2Pix. Speech-conditioned face generation using Generative Adversarial Networks "
 keywords:    "deep learning, adversarial learning, face synthesis, computer vision "
-description: "Description here"
-source_link: "https://github.com/miqueltubau/Wav2Pix.git"
+description: "Speech is a rich biometric signal that contains information about the identity, gender and emotional state of the speaker. In this work, we explore its potential to generate face images of a speaker by conditioning a Generative Adversarial Network (GAN) with raw speech input.  We propose a deep neural network that is trained from scratch in an end-to-end fashion, generating a face directly from the raw speech waveform without any additional identity information (e.g reference image or one-hot encoding). Our model is trained in a self-supervised approach by exploiting the audio and visual signals naturally aligned in videos. With the purpose of training from video data, we present a novel dataset collected for this work, with high-quality videos of youtubers with notable expressiveness in both the speech and visual signals."
+source_link: "https://github.com/imatge-upc/wav2pix"
 favicon:     "img/favicon.ico"
 touch_icon:  "img/apple-touch-icon.png"
 # google_analytics_key: UA-49607422-1 ## put YOUR key here to enable tracking! (blank to disable)
