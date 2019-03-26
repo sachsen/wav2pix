@@ -1,5 +1,5 @@
 ---
-title: "Presentation"
+title: "Slides"
 bg: #9AD1F5
 color: black
 fa-icon: slideshare
