@@ -107,7 +107,7 @@ for index, path in enumerate(youtubers_path):
         width = int(vmetadata['@width'])
         height = int(vmetadata['@height'])
         frame_rate = vmetadata['@avg_frame_rate'].split('/')
-        avg_fps = int(frame_rate[0]) / int(frame_rate[1])
+        avg_fps = np.round(int(frame_rate[0]) / int(frame_rate[1]))
         duration = vmetadata['@duration']
         duration_timestamp = vmetadata['@duration_ts']
         print 'Video Metadata: width --> {}, height --> {}, Average FPS --> {},' \
