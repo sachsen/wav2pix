@@ -1,7 +1,9 @@
 import torch
 import torch.nn as nn
+
 from models.spectral_norm import SpectralNorm
-from scripts.utils import Concat_embed
+
+# from scripts.utils import Concat_embed
 
 
 class discriminator(nn.Module):
@@ -30,27 +32,35 @@ class discriminator(nn.Module):
 
         # if we are feeding D with 64x64 images:
         if self.image_size == 64:
-            self.netD_2 = nn.Conv2d(self.ndf * 8 + self.latent_space, 1, 4, 1, 0, bias=False)
+            self.netD_2 = nn.Conv2d(
+                self.ndf * 8 + self.latent_space, 1, 4, 1, 0, bias=False
+            )
 
         # if we are feeding D with 128x128 images:
         elif self.image_size == 128:
             self.netD_1 = nn.Sequential(
                 self.netD_1,
-                SpectralNorm(nn.Conv2d(self.ndf * 8, self.ndf * 16, 4, 2, 1, bias=False)),
+                SpectralNorm(
+                    nn.Conv2d(self.ndf * 8, self.ndf * 16, 4, 2, 1, bias=False)
+                ),
                 nn.LeakyReLU(0.2, inplace=True),
             )
-            self.netD_2 = nn.Conv2d(self.ndf * 16 + self.latent_space, 1, 4, 1, 0, bias=False)
-
+            self.netD_2 = nn.Conv2d(
+                self.ndf * 16 + self.latent_space, 1, 4, 1, 0, bias=False
+            )
 
     def forward(self, input_image, z_vector):
 
         # feeding  input images to the first stack of conv layers
         x_intermediate = self.netD_1(input_image)
 
-        # replicating the speech embedding spatially and performing a depth concatenation with the embedded audio after
+        # replicating the speech embedding spatially and performing
+        # a depth concatenation with the embedded audio after
         # being fed into segan's D
         dimensions = list(x_intermediate.shape)
-        x = torch.cat([x_intermediate, z_vector.repeat(1,1,dimensions[2],dimensions[3])], 1)
+        x = torch.cat(
+            [x_intermediate, z_vector.repeat(1, 1, dimensions[2], dimensions[3])], 1
+        )
 
         # feeding to the last conv layer.
         x = self.netD_2(x)
