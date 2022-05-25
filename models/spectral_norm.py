@@ -2,12 +2,13 @@ import torch
 from torch import nn
 from torch.nn import Parameter
 
+
 def l2normalize(v, eps=1e-12):
     return v / (v.norm() + eps)
 
 
 class SpectralNorm(nn.Module):
-    def __init__(self, module, name='weight', power_iterations=1):
+    def __init__(self, module, name="weight", power_iterations=1):
         super(SpectralNorm, self).__init__()
         self.module = module
         self.name = name
@@ -22,8 +23,8 @@ class SpectralNorm(nn.Module):
 
         height = w.data.shape[0]
         for _ in range(self.power_iterations):
-            v.data = l2normalize(torch.mv(torch.t(w.view(height,-1).data), u.data))
-            u.data = l2normalize(torch.mv(w.view(height,-1).data, v.data))
+            v.data = l2normalize(torch.mv(torch.t(w.view(height, -1).data), u.data))
+            u.data = l2normalize(torch.mv(w.view(height, -1).data, v.data))
 
         # sigma = torch.dot(u.data, torch.mv(w.view(height,-1).data, v.data))
         sigma = u.dot(w.view(height, -1).mv(v))
@@ -37,7 +38,6 @@ class SpectralNorm(nn.Module):
             return True
         except AttributeError:
             return False
-
 
     def _make_params(self):
         w = getattr(self.module, self.name)
@@ -56,7 +56,6 @@ class SpectralNorm(nn.Module):
         self.module.register_parameter(self.name + "_u", u)
         self.module.register_parameter(self.name + "_v", v)
         self.module.register_parameter(self.name + "_bar", w_bar)
-
 
     def forward(self, *args):
         self._update_u_v()
