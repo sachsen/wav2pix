@@ -81,7 +81,6 @@ class dataset_builder(Dataset):
         # getting audio paths.
         audio_path = self.audios[idx]
         fm, wav_data = wavfile.read(audio_path)
-        # fm, wav_data = wavfile.read(filter(lambda x: x in printable, audio_path))
         if fm != 16000:
             raise ValueError("Sampling rate is expected to be 16kHz!")
 
@@ -98,10 +97,7 @@ class dataset_builder(Dataset):
         wav_data = self.pre_emphasize(wav_data)
 
         # opening the corresponding image and a wrong_face
-        cropped_face = Image.open(
-            format_path.replace(".jpg", ".png")
-            # filter(lambda x: x in printable, format_path).replace(".jpg", ".png")
-        )
+        cropped_face = Image.open(format_path.replace(".jpg", ".png"))
         wrong_face_path = self.get_dismatched_face(audio_path)
         wrong_face = Image.open(wrong_face_path)
 
