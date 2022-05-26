@@ -10,7 +10,7 @@ We used [this](https://github.com/franroldans/tfm-franroldan-wav2pix) project as
 
 ## Dependencies
 
-- Python 3.6
+- Python 3.6 or higher
 - PyTorch 
 
 This implementation only supports running with GPUs.
