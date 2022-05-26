@@ -228,7 +228,7 @@ for index, path in enumerate(youtubers_path):
                             print(err)
 
                 # Save bboxes:
-                with open(os.path.join(bboxes_path, "bboxes.p"), "w") as f:
+                with open(os.path.join(bboxes_path, "bboxes.p"), "wb") as f:
                     pickle.dump(bboxes, f)
                 check_audio_frames(frames_faces_path, cropped_audio_path)
             except (RuntimeError):
