@@ -15,7 +15,6 @@ errors = 0
 
 def format_filename(filename):
     try:
-        filename = filename.decode("utf-8")
         s = "".join(
             (
                 c
@@ -23,7 +22,7 @@ def format_filename(filename):
                 if unicodedata.category(c) != "Mn"
             )
         )
-        return s.decode()
+        return s
     except (UnicodeEncodeError, UnicodeDecodeError):
         return filename
 
