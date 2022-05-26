@@ -10,7 +10,7 @@ from torch.autograd import Variable
 from torch.utils.data import DataLoader
 
 from scripts.dataset_builder import Rescale, dataset_builder
-from scripts.utils import Logger, Utils, from_onehot_to_int
+from scripts.utils import Utils, from_onehot_to_int
 
 
 class Trainer(object):
@@ -91,7 +91,7 @@ class Trainer(object):
 
         # initializing a Logger in which we will create Log files and
         # defining the directory name in which store checkpoints.
-        self.logger = Logger(vis_screen, save_path)
+        # self.logger = Logger(vis_screen, save_path)
         self.checkpoints_path = "checkpoints"
         self.save_path = save_path
 
@@ -234,8 +234,12 @@ class Trainer(object):
                 self.optimG.step()
 
             # store the info in the logger at each epoch
-            self.logger.log_iteration_gan(
-                epoch, d_loss, g_loss, real_score, fake_score, wrong_score
+            print(
+                f"Epoch: {epoch}, d_loss= {d_loss.data.cpu().mean():.6f}, "
+                f"g_loss= {g_loss.data.cpu().mean():.6f}, "
+                f"real score D(X)= {real_score.data.cpu().mean():.6f}, "
+                f"fake score D(G(X))= {fake_score.data.cpu().mean():.6f}, "
+                f"wrong score: {wrong_score.data.cpu().mean():.6f}"
             )
 
             # storing the parameters for every 10 epochs
